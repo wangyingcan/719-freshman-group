@@ -10,10 +10,7 @@ import com.example.neo4jtest.model.Movie;
 import com.example.neo4jtest.service.impl.MovieServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "movie")
@@ -22,7 +19,6 @@ public class MovieController {
 
     @Autowired
     private MovieServiceImpl movieService;
-
     @RequestMapping (value = "save")
     public void save(@RequestBody Movie movie) {
         movieService.saveMovie(movie);
@@ -30,14 +26,15 @@ public class MovieController {
 
     @RequestMapping (value = "save1")
     public void save1() {
-        String fileName = "C:\\Users\\wangyingcan\\Desktop\\IDC任务汇总\\1 719 大数据\\23.6.15 二期文件\\4 研一小组资料\\我的demo[重写的findById]\\database\\movie.xlsx";
-        //read方法的三个参数：第一个：文件名；第二个：实体类的Class对象；第三个：监听器的对象
+        String fileName = "C:\\Users\\wangyingcan\\Desktop\\IDC任务汇总\\1 719 大数据\\23.6.15 二期文件\\4 研一小组资料\\719-freshman-group\\neo4jTest\\database\\movie.xlsx";
         EasyExcel.read(fileName, Movie.class, new ExcelMovieListener(movieService)).sheet().doRead();
     }
 
-    //删除movie节点
     @RequestMapping (value = "delete")
     public void delete(@RequestParam("mid") String mid) {
         movieService.deleteMovie(mid);
     }
+
+    @RequestMapping("search/{mid}")
+    public String search(@PathVariable String mid){ return movieService.searchMovieByMid(mid);}     //将返回的字符串放在HTTP响应体中
 }

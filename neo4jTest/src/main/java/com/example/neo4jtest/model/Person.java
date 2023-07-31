@@ -10,7 +10,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Data       //Lombok注解，作用是简化bean的编写
 @Node(labels = "Person")
 public class Person {
 
@@ -21,6 +21,6 @@ public class Person {
     @ExcelProperty(value = "name",index = 1)
     private String name;
 
-    @Relationship(type = "IS BROTHER OF", direction = Relationship.Direction.INCOMING)   //Relation中被指的节点，即箭头类型
+    @Relationship(type = "IS_BROTHER_OF", direction = Relationship.Direction.INCOMING)
     private List<PPRelation> ppRelations = new ArrayList<>();
 }

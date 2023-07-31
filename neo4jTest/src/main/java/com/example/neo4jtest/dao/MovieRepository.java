@@ -9,10 +9,9 @@ import java.util.Optional;
 
 @EnableNeo4jRepositories
 public interface MovieRepository extends Neo4jRepository<Movie,String> {
-    @Query("Match(n:Movie{mid:$mid}) return n")    //cypher语句：查询pid为$pid的Person类节点
+    @Query("Match(n:Movie{mid:$mid}) return n")
     Optional<Movie> findMovieByMid(String mid);
 
     @Query("Match(n:Movie{mid:$mid}) delete n")
     void deleteMovieByMid(String mid);
-
 }

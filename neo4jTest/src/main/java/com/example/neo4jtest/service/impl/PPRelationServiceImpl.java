@@ -20,32 +20,49 @@ public class PPRelationServiceImpl implements PPRelationService {
     @Autowired
     private PPRelationRepository ppRelationRepository;
     @Override
-    public String addPPRelation(Person startNode, Person endNode) {
+    public String addPPRelation(String ppid,Person startNode, Person endNode) {
         PPRelation ppRelation = new PPRelation();
         ppRelation.setStartNode(startNode);
-        endNode.getPpRelations().add(ppRelation);   //将这对关系加到箭头节点的ppRelations属性的队列中
+        ppRelation.setPid1(startNode.getPid());
+        ppRelation.setPid2(endNode.getPid());
+        ppRelation.setPpid(ppid);
+        endNode.getPpRelations().add(ppRelation);
         personRepository.save(endNode);
         return "yes";
     }
 
     @Override
-    public String addPPRelation(String startNodeId, String endNodeId) {
+    public String addPPRelation(String ppid,String startNodeId, String endNodeId) {
         Optional<Person> byId = personRepository.findPersonByPid(startNodeId);
         Optional<Person> byId1 = personRepository.findPersonByPid(endNodeId);
-        if (byId.isPresent() && byId1.isPresent()) {
-            return addPPRelation(byId.get(), byId1.get());
+        boolean isExist=findPPRelationByPids1(startNodeId,endNodeId);
+        if (byId.isPresent() && byId1.isPresent() && !isExist) {
+            return addPPRelation(ppid,byId.get(), byId1.get());
         }
         return "no";
     }
 
     @Override
     public String deletePPRelationByPidMid(String startId,String endId){
-        Optional<Person> byId = personRepository.findPersonByPid(startId);    //起始节点是Person
-        Optional<Person> byId1 = personRepository.findPersonByPid(endId);     //结束节点的Movie
-        if (byId.isPresent() && byId1.isPresent()) {   //判断是否存在两节点
+        Optional<Person> byId = personRepository.findPersonByPid(startId);
+        Optional<Person> byId1 = personRepository.findPersonByPid(endId);
+        if (byId.isPresent() && byId1.isPresent()) {
             ppRelationRepository.deletePMRelationByPids(startId,endId);
         }
         return "delete fail";
     }
 
+    @Override
+    public String findPPRelationByPids(String startId, String endId) {
+        Optional<String> ppRelation = ppRelationRepository.findPPRelationByPids(startId, endId);
+        if(ppRelation.isPresent()) return ppRelation.get();
+        return "查找失败";
+    }
+
+    @Override
+    public boolean findPPRelationByPids1(String startId, String endId) {
+        Optional<String> ppRelation = ppRelationRepository.findPPRelationByPids(startId, endId);
+        if(ppRelation.isPresent()) return true;
+        return false;
+    }
 }

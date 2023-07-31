@@ -20,20 +20,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class PMRelationController {
     @Autowired
     private PMRelationServiceImpl pmRelationService;
-
     @RequestMapping(value = "addRelation")
-    public void addRelationship(@RequestParam("pid") String startId, @RequestParam("mid")String endId) {    //startId是pid，endId是mid；URL使用的参数名称和@RequestParam相关，方法的参数名作用域仅仅是方法局部
-        pmRelationService.addPMRelation(startId, endId);
+    public void addRelationship(@RequestParam("pmid") String pmid,@RequestParam("pid") String startId, @RequestParam("mid")String endId) {
+        pmRelationService.addPMRelation(pmid,startId, endId);
     }
 
     @RequestMapping(value = "addRelation1")
     public void addRelationship1() {
-        String fileName = "C:\\Users\\wangyingcan\\Desktop\\IDC任务汇总\\1 719 大数据\\23.6.15 二期文件\\4 研一小组资料\\我的demo[重写的findById]\\database\\pmrelation.xlsx";
+        String fileName = "C:\\Users\\wangyingcan\\Desktop\\IDC任务汇总\\1 719 大数据\\23.6.15 二期文件\\4 研一小组资料\\719-freshman-group\\neo4jTest\\database\\pmrelation.xlsx";
         EasyExcel.read(fileName, PMRelation.class, new ExcelPMRelationListener(pmRelationService)).sheet().doRead();
     }
 
     @RequestMapping(value = "deleteSomeRelation")
-    public void deleteSomeRelationship(@RequestParam("pid") String startId, @RequestParam("mid")String endId) {    //startId是pid，endId是mid；URL使用的参数名称和@RequestParam相关，方法的参数名作用域仅仅是方法局部
+    public void deleteSomeRelationship(@RequestParam("pid") String startId, @RequestParam("mid")String endId) {
         pmRelationService.deletePMRelationByPidMid(startId, endId);
+    }
+
+    @RequestMapping(value = "findSomeRelation")
+    public String findSomeRelationship(@RequestParam("pid") String startId, @RequestParam("mid")String endId) {
+        return pmRelationService.findPMRelationByPidMid(startId, endId);
     }
 }

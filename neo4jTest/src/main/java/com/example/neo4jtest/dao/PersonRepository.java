@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @EnableNeo4jRepositories
 public interface PersonRepository extends Neo4jRepository<Person,String> {
-    @Query("Match(n:Person{pid:$pid}) return n")    //cypher语句：查询pid为$pid的Person类节点
+    @Query("Match(n:Person{pid:$pid}) return n")
     Optional<Person> findPersonByPid(String pid);
 
     @Query("Match(n:Person{pid:$pid}) delete n")

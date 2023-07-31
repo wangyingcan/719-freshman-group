@@ -17,11 +17,9 @@ public class ExcelPMRelationListener extends AnalysisEventListener<PMRelation> {
         this.pmRelationService=pmRelationService;
     }
 
-    List<PMRelation> list = new ArrayList<PMRelation>();
-
     @Override
     public void invoke(PMRelation pmRelation, AnalysisContext analysisContext) {
-        pmRelationService.addPMRelation(pmRelation.getPid(),pmRelation.getMid());
+        pmRelationService.addPMRelation(pmRelation.getPmid(),pmRelation.getPid(),pmRelation.getMid());
     }
 
     @Override
