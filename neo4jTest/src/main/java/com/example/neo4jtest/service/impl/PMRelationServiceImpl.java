@@ -1,4 +1,7 @@
 package com.example.neo4jtest.service.impl;
+/**
+ * 存在的不足：没有用代码逻辑检测并保证pmid的唯一性
+ */
 
 import com.example.neo4jtest.dao.MovieRepository;
 import com.example.neo4jtest.dao.PMRelationRepository;
@@ -11,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -24,35 +28,53 @@ public class PMRelationServiceImpl implements PMRelationService {
     private MovieRepository movieRepository;
 
     @Autowired
-    private PMRelationRepository pmRelationRepository;   //此处定义关系删除的方法
+    private PMRelationRepository pmRelationRepository;
 
     @Override
-    public String addPMRelation(Person startNode, Movie endNode) {
+    public String addPMRelation(String pmid,Person startNode, Movie endNode) {
         PMRelation pmRelation = new PMRelation();
         pmRelation.setStartNode(startNode);
+        pmRelation.setPid(startNode.getPid());
+        pmRelation.setMid(endNode.getMid());
+        pmRelation.setPmid(pmid);
         endNode.getPmRelations().add(pmRelation);
         movieRepository.save(endNode);
         return "yes";
     }
 
     @Override
-    public String addPMRelation(String startNodeId, String endNodeId) {
-        Optional<Person> byId = personRepository.findPersonByPid(startNodeId);    //起始节点是Person
-        Optional<Movie> byId1 = movieRepository.findMovieByMid(endNodeId);     //结束节点的Movie
-        if (byId.isPresent() && byId1.isPresent()) {   //判断是否存在两节点
-            return addPMRelation(byId.get(), byId1.get());
+    public String addPMRelation(String pmid,String startNodeId, String endNodeId) {
+        Optional<Person> byId = personRepository.findPersonByPid(startNodeId);
+        Optional<Movie> byId1 = movieRepository.findMovieByMid(endNodeId);
+        //防止关系重复添加，需要进行查找关系
+        boolean isExist=findPMRelationByPidMid1(startNodeId,endNodeId);
+        if (byId.isPresent() && byId1.isPresent()&& !isExist) {
+            return addPMRelation(pmid,byId.get(), byId1.get());
         }
-        //这里代表节点不存在，存储失败(不报错、不提示)
         return "no";
     }
 
     @Override
-    public String deletePMRelationByPidMid(String startNodeId, String endNodeId){
-        Optional<Person> byId = personRepository.findPersonByPid(startNodeId);    //起始节点是Person
-        Optional<Movie> byId1 = movieRepository.findMovieByMid(endNodeId);     //结束节点的Movie
-        if (byId.isPresent() && byId1.isPresent()) {   //判断是否存在两节点
-            pmRelationRepository.deletePMRelationByPidMid(startNodeId,endNodeId);
+    public String deletePMRelationByPidMid(String startNodeId, String endNodeId) {
+        Optional<Person> byId = personRepository.findPersonByPid(startNodeId);
+        Optional<Movie> byId1 = movieRepository.findMovieByMid(endNodeId);
+        if (byId.isPresent() && byId1.isPresent()) {
+            pmRelationRepository.deletePMRelationByPidMid(startNodeId, endNodeId);
         }
         return "delete fail";
+    }
+
+    @Override
+    public String findPMRelationByPidMid(String startId, String endId) {
+        Optional<String> pmRelation = pmRelationRepository.findPMRelationByPidMid(startId, endId);
+        if(pmRelation.isPresent()) return pmRelation.get();
+        return "查找失败";
+    }
+
+    @Override
+    public boolean findPMRelationByPidMid1(String startId, String endId) {
+        Optional<String> pmRelation = pmRelationRepository.findPMRelationByPidMid(startId, endId);
+        if(pmRelation.isPresent()) return true;
+        return false;
     }
 }

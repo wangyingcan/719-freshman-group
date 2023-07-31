@@ -22,18 +22,23 @@ public class PPRelationController {
     private PPRelationServiceImpl ppRelationService;
 
     @RequestMapping(value = "addRelation")
-    public void addRelationship(@RequestParam("pid1") String startId, @RequestParam("pid2")String endId) {
-        ppRelationService.addPPRelation(startId, endId);
+    public void addRelationship(@RequestParam("ppid") String ppid,@RequestParam("pid1") String startId, @RequestParam("pid2")String endId) {
+        ppRelationService.addPPRelation(ppid, startId, endId);
     }
 
     @RequestMapping(value = "addRelation1")
     public void addRelationship1() {
-        String fileName = "C:\\Users\\wangyingcan\\Desktop\\IDC任务汇总\\1 719 大数据\\23.6.15 二期文件\\4 研一小组资料\\我的demo[重写的findById]\\database\\pprelation.xlsx";
+        String fileName = "C:\\Users\\wangyingcan\\Desktop\\IDC任务汇总\\1 719 大数据\\23.6.15 二期文件\\4 研一小组资料\\719-freshman-group\\neo4jTest\\database\\pprelation.xlsx";
         EasyExcel.read(fileName, PPRelation.class, new ExcelPPRelationListener(ppRelationService)).sheet().doRead();
     }
 
     @RequestMapping(value = "deleteSomeRelation")
-    public void deleteSomeRelationship(@RequestParam("pid1") String startId, @RequestParam("pid2")String endId) {    //startId是pid，endId是mid；URL使用的参数名称和@RequestParam相关，方法的参数名作用域仅仅是方法局部
+    public void deleteSomeRelationship(@RequestParam("pid1") String startId, @RequestParam("pid2")String endId) {
         ppRelationService.deletePPRelationByPidMid(startId, endId);
+    }
+
+    @RequestMapping(value = "findSomeRelation")
+    public String findSomeRelationship(@RequestParam("pid1") String startId, @RequestParam("pid2")String endId) {
+        return ppRelationService.findPPRelationByPids(startId, endId);
     }
 }

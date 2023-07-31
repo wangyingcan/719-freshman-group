@@ -17,7 +17,7 @@ public class ExcelPPRelationListener extends AnalysisEventListener<PPRelation> {
 
     @Override
     public void invoke(PPRelation ppRelation, AnalysisContext analysisContext) {
-        ppRelationService.addPPRelation(ppRelation.getPid1(),ppRelation.getPid2());
+        ppRelationService.addPPRelation(ppRelation.getPpid(),ppRelation.getPid1(),ppRelation.getPid2());
     }
 
     @Override

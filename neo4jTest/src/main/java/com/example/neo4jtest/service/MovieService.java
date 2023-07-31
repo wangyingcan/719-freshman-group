@@ -6,4 +6,6 @@ public interface MovieService {
     void saveMovie(Movie movie);
 
     void deleteMovie(String mid);
+
+    String searchMovieByMid(String mid);
 }

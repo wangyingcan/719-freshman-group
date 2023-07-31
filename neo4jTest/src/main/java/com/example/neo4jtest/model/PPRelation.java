@@ -9,13 +9,15 @@ import org.springframework.data.neo4j.core.schema.TargetNode;
 @Data
 @RelationshipProperties
 public class PPRelation {
+    @RelationshipId
+    private Long id;
+
     @ExcelProperty(value="pid1",index=1)
     private String pid1;
 
     @ExcelProperty(value="pid2",index=2)
     private String pid2;
 
-    @RelationshipId
     @ExcelProperty(value="ppid",index=0)
     private String ppid;
 
