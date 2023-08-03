@@ -1,0 +1,18 @@
+#日志存储地址
+logging:
+  level:
+    com.abcft.industrygraphbrowse.service: info
+  file:
+    path: "logs/service.log"
+#服务器配置
+server:
+  port: 18071
+  tomcat.uri-encoding: UTF-8
+spring:
+  application:
+    name: industrygraphbrowse
+  profiles:
+    active: "@spring.profiles.active@"
+  mvc:
+    async:
+      request-timeout: 200000
