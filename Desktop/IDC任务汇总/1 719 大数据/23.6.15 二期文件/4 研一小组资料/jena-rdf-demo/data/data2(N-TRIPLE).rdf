@@ -1,0 +1,6 @@
+<http://somewhere/JohnSmith> <http://www.w3.org/2001/vcard-rdf/3.0#NICKNAME> "Adman" .
+<http://somewhere/JohnSmith> <http://www.w3.org/2001/vcard-rdf/3.0#NICKNAME> "Smithy" .
+<http://somewhere/JohnSmith> <http://www.w3.org/2001/vcard-rdf/3.0#FN> "John Smith" .
+<http://somewhere/JohnSmith> <http://www.w3.org/2001/vcard-rdf/3.0#N> _:B7225b3d2X2Da6f9X2D4047X2D830eX2Df80bcd4776bc .
+_:B7225b3d2X2Da6f9X2D4047X2D830eX2Df80bcd4776bc <http://www.w3.org/2001/vcard-rdf/3.0#Given> "John" .
+_:B7225b3d2X2Da6f9X2D4047X2D830eX2Df80bcd4776bc <http://www.w3.org/2001/vcard-rdf/3.0#Family> "Smith" .
