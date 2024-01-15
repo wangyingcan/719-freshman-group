@@ -1,0 +1,9 @@
+.main-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width:100%;
+    min-height: 6vh;    /*vh代表视口（浏览器窗口）比例*/
+    max-height: 8vh;
+    background-image: linear-gradient(to right, #ff8a00, #da1b60);
+}
