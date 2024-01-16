@@ -1,7 +1,8 @@
 import { Layout } from 'antd';
 import React from 'react';
 import './App.css';
-import TestHeader from "./components/test";
+import TestHeader from "./components/TestHeader";
+import {TestBody} from "./components/TestBody";
 
 const App: React.FunctionComponent = () => {
     /*测试一下antd组件是否可以引入*/
@@ -9,6 +10,7 @@ const App: React.FunctionComponent = () => {
         <div>
           <Layout>
             <TestHeader/>
+            <TestBody/>
           </Layout>
         </div>
     );
