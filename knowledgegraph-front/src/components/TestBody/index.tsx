@@ -58,7 +58,6 @@ export const TestBody: React.FunctionComponent = () => {
                     onOpenChange={menuOnOpenChangeHandler}
                 />
             </Sider>
-            <RouteView/>
             <Layout style={{padding: "10px 10px 10px 10px"}}>
                 <Content className={"main-body-content"}>
                     <RouteView/>
