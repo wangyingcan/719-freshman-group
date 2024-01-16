@@ -15,8 +15,7 @@ root.render(
             {/*2.路由选择器：可视为<Switch>*/}
             <Routes>
                 {/*3.路由规则：通配符形式匹配页面*/}
-                <Route path={"/*"} element={<App/>}>
-                </Route>
+                <Route path={"/*"} element={<App/>}/>
             </Routes>
         </HashRouter>
     </React.StrictMode>
