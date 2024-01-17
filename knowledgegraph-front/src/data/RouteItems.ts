@@ -26,19 +26,19 @@ export const AppRoutes: RouteType[] = [
                 path: '/knowledgeBaseSystem/vocabularyManagement',
                 key: 'vocabularyManagement',
                 label: '词汇管理',
-                component: lazy(() => import('../pages/knowledgeBaseSystem/vocabularyManagement'))
+                component: lazy(() => import('../pages/knowledgeBaseSystem/vocabularyManagement')) as LazyExoticComponent<any>
             },
             {
                 path: '/knowledgeBaseSystem/textManagement',
                 key: 'textManagement',
                 label: '文本管理',
-                component: lazy(() => import('../pages/knowledgeBaseSystem/textManagement'))
+                component: lazy(() => import('../pages/knowledgeBaseSystem/textManagement')) as LazyExoticComponent<any>
             },
             {
                 path: '/knowledgeBaseSystem/attachmentManagement',
                 key: 'attachmentManagement',
                 label: '附件管理',
-                component: lazy(() => import('../pages/knowledgeBaseSystem/attachmentManagement'))
+                component: lazy(() => import('../pages/knowledgeBaseSystem/attachmentManagement')) as LazyExoticComponent<any>
             }
         ]
     },
@@ -58,13 +58,13 @@ export const AppRoutes: RouteType[] = [
                         path: '/knowledgeBaseManagementSystem/ontologyManagement/tripleManagement',
                         key: 'tripleManagement',
                         label: '三元组管理',
-                        component: lazy(() => import('../pages/knowledgeBaseManagementSystem/ontologyManagement/tripleManagement'))
+                        component: lazy(() => import('../pages/knowledgeBaseManagementSystem/ontologyManagement/tripleManagement')) as LazyExoticComponent<any>
                     },
                     {
                         path: '/knowledgeBaseManagementSystem/ontologyManagement/ontologyGraphManagement',
                         key: 'ontologyGraphManagement',
                         label: '本体图谱管理',
-                        component: lazy(() => import('../pages/knowledgeBaseManagementSystem/ontologyManagement/ontologyGraphManagement'))
+                        component: lazy(() => import('../pages/knowledgeBaseManagementSystem/ontologyManagement/ontologyGraphManagement')) as LazyExoticComponent<any>
                     }
                 ]
             },
@@ -72,7 +72,7 @@ export const AppRoutes: RouteType[] = [
                 path: '/knowledgeBaseManagementSystem/entityManagement',
                 key: 'entityManagement',
                 label: '实体管理',
-                component: lazy(() => import('../pages/knowledgeBaseManagementSystem/entityManagement'))
+                component: lazy(() => import('../pages/knowledgeBaseManagementSystem/entityManagement')) as LazyExoticComponent<any>
             }
         ]
     },
@@ -86,13 +86,13 @@ export const AppRoutes: RouteType[] = [
                 path: '/knowledgeBaseRetrievalSystem/entityLevelSearch',
                 key: 'entityLevelSearch',
                 label: '实体级查询',
-                component: lazy(() => import('../pages/knowledgeBaseRetrievalSystem/entityLevelSearch'))
+                component: lazy(() => import('../pages/knowledgeBaseRetrievalSystem/entityLevelSearch')) as LazyExoticComponent<any>
             },
             {
                 path: '/knowledgeBaseRetrievalSystem/entityInternalSearch',
                 key: 'entityInternalSearch',
                 label: '实体内查询',
-                component: lazy(() => import('../pages/knowledgeBaseRetrievalSystem/entityInternalSearch'))
+                component: lazy(() => import('../pages/knowledgeBaseRetrievalSystem/entityInternalSearch')) as LazyExoticComponent<any>
             }
         ]
     }

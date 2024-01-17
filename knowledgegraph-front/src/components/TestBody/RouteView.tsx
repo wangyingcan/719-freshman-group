@@ -3,43 +3,43 @@ import React from "react";
 import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 
 // 0.原始方法参考
-const routeList = (routeItems:RouteType[]) => {
-
-    let routes =  routeItems.map((item:RouteType,index:number) => {
-        return (
-            <Route
-                key = {index}
-                path = {item.path}
-                //可选属性
-                loader = {item.loader?item.loader:undefined}
-                action = {item.action?item.action:undefined}
-                element = {
-                    //如果item.component有定义，则渲染item.components
-                    //否则，在<Outlet>里嵌套渲染子路由元素
-                    item.component?(
-                        <React.Suspense>
-                            <item.component/>
-                        </React.Suspense>
-                    ) : (
-                        <div>
-                            <Outlet/>
-                        </div>
-                    )
-                }
-            >
-                {/*如果存在item.to, 则重定向到item.to*/}
-                {item.to && <Route path={item.path} element={<Navigate to={item.to}/>}/>}
-                {/*如果存在item.children,则嵌套包含子路由*/}
-                {item.children && routeList(item.children)}
-            </Route>
-        );
-    });
-    return routes;
-};
+// const routeList = (routeItems:RouteType[]) => {
+//
+//     let routes =  routeItems.map((item:RouteType,index:number) => {
+//         return (
+//             <Route
+//                 key = {index}
+//                 path = {item.path}
+//                 //可选属性
+//                 loader = {item.loader?item.loader:undefined}
+//                 action = {item.action?item.action:undefined}
+//                 element = {
+//                     //如果item.component有定义，则渲染item.components
+//                     //否则，在<Outlet>里嵌套渲染子路由元素
+//                     item.component?(
+//                         <React.Suspense fallback={<div>Loading...</div>}>
+//                             <item.component/>
+//                         </React.Suspense>
+//                     ) : (
+//                         <div>
+//                             <Outlet/>
+//                         </div>
+//                     )
+//                 }
+//             >
+//                 {/*如果存在item.to, 则重定向到item.to*/}
+//                 {item.to && <Route path={item.path} element={<Navigate to={item.to}/>}/>}
+//                 {/*如果存在item.children,则嵌套包含子路由*/}
+//                 {item.children && routeList(item.children)}
+//             </Route>
+//         );
+//     });
+//     return routes;
+// };
 
 
 // 1.将AppRoutes对象转换为Route组件的函数
-/*function routeList(routes: RouteType[]) {
+function routeList(routes: RouteType[]) {
     // 1.1遍历routes形参的时候进行<Route>组件的构建
     return routes.map((route: RouteType) => {
         // 1.2 两类情况：有子路由、无子路由；同时children属性和component属性互斥
@@ -56,7 +56,7 @@ const routeList = (routeItems:RouteType[]) => {
                 element={route.to?(
                     <Navigate to={route.to}></Navigate>
                 ):route.component? (
-                    <React.Suspense>
+                    <React.Suspense fallback={<div>Loading...</div>}>
                         <route.component/>
                     </React.Suspense>
                 ):(
@@ -65,7 +65,7 @@ const routeList = (routeItems:RouteType[]) => {
                     </div>
                     )}
             >
-                routeList(route.children)
+                {routeList(route.children)}
             </Route>
         } else {
             // 1.4 无子路由的情况
@@ -91,7 +91,7 @@ const routeList = (routeItems:RouteType[]) => {
             />
         }
     })
-}*/
+}
 
 // 2.RouteView组件的构建
 export const RouteView: React.FunctionComponent = () => {
