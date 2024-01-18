@@ -2,42 +2,6 @@ import {AppRoutes, RouteType} from "../../data/RouteItems";
 import React from "react";
 import {Navigate, Outlet, Route, Routes} from "react-router-dom";
 
-// 0.原始方法参考
-// const routeList = (routeItems:RouteType[]) => {
-//
-//     let routes =  routeItems.map((item:RouteType,index:number) => {
-//         return (
-//             <Route
-//                 key = {index}
-//                 path = {item.path}
-//                 //可选属性
-//                 loader = {item.loader?item.loader:undefined}
-//                 action = {item.action?item.action:undefined}
-//                 element = {
-//                     //如果item.component有定义，则渲染item.components
-//                     //否则，在<Outlet>里嵌套渲染子路由元素
-//                     item.component?(
-//                         <React.Suspense fallback={<div>Loading...</div>}>
-//                             <item.component/>
-//                         </React.Suspense>
-//                     ) : (
-//                         <div>
-//                             <Outlet/>
-//                         </div>
-//                     )
-//                 }
-//             >
-//                 {/*如果存在item.to, 则重定向到item.to*/}
-//                 {item.to && <Route path={item.path} element={<Navigate to={item.to}/>}/>}
-//                 {/*如果存在item.children,则嵌套包含子路由*/}
-//                 {item.children && routeList(item.children)}
-//             </Route>
-//         );
-//     });
-//     return routes;
-// };
-
-
 // 1.将AppRoutes对象转换为Route组件的函数
 function routeList(routes: RouteType[]) {
     // 1.1遍历routes形参的时候进行<Route>组件的构建
