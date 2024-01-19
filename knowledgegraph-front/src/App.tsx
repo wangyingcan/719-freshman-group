@@ -6,7 +6,7 @@ import {TestBody} from "./components/TestBody";
 import {asyncTestGet, asyncTestPost} from "./testRequest";
 
 const App: React.FunctionComponent = () => {
-    // 1.测试前后端连通性的状态变量
+    // 1.state 测试前后端连通性的状态变量
     const [userid, setUserid] = React.useState<string>("");
     const [userName,setUserName] = React.useState<string>("");
 
@@ -34,6 +34,7 @@ const App: React.FunctionComponent = () => {
     /*测试一下antd组件是否可以引入*/
     return (
         <div>
+            {/*4.view展示所有的state变量*/}
             <h3>{userid}</h3>
             <h3>{userName}</h3>
           <Layout>

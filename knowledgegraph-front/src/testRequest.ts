@@ -16,10 +16,13 @@ export async function asyncTestGet():Promise<TestVO>{
 
 // 2.post方法测试异步方法
 export async function asyncTestPost(userId:string):Promise<TestVO>{
+    // 2.1 初始化响应结果
     let result:TestVO={} as TestVO;
+    // 2.2 发送post请求
     await request.post(TestAPI.TEST_POST_URL,{
         userId:userId
     }).then((data)=>{
+        // 2.3 取出data，赋值result
         result=data;
     })
     return result;
